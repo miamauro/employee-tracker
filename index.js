@@ -34,7 +34,7 @@ function init() {
           viewAllDepartments();
           break;
         case "view all roles":
-          // console.log("Let's see all roles.");
+          viewAllRoles();
           break;
         case "view all employees":
           viewAllEmployees();
@@ -64,9 +64,19 @@ function viewAllDepartments() {
   });
 }
 
+function viewAllRoles() {
+  db.query(
+    "SELECT role.id, role.title, department.name AS department, role.salary FROM role LEFT JOIN department ON role.department_id = department.id;",
+    (err, results) => {
+      console.table(results);
+      init();
+    }
+  );
+}
+
 function viewAllEmployees() {
   db.query(
-    "SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name, role.salary FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id",
+    "SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id",
     (err, results) => {
       console.table(results);
       init();
