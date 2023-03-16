@@ -19,7 +19,8 @@ INSERT INTO department
 SET name = ?
 
 --Add a role--
-
+INSERT INTO role 
+SET title = ?, salary = ?, department_id = ?
 
 --Add an employee--
 INSERT INTO employee 

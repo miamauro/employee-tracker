@@ -50,7 +50,6 @@ function init() {
           break;
         case "update an employee role":
           // updateRole();
-          // console.log("Let's update an employee role.");
           break;
         case "exit":
           process.exit();
