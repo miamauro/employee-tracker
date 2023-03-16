@@ -19,10 +19,17 @@ INSERT INTO department
 SET name = ?
 
 --Add a role--
+SELECT * FROM department
+--then--
 INSERT INTO role 
 SET title = ?, salary = ?, department_id = ?
 
 --Add an employee--
+SELECT * FROM role
+--then--
+SELECT CONCAT(first_name, " ", last_name) AS name, id AS value FROM employee 
+WHERE manager_id is null
+--then--
 INSERT INTO employee 
 SET first_name = ?, last_name = ?, role_id = ?, manager_id = ?
 
