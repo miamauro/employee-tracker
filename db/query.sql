@@ -12,7 +12,7 @@ LEFT JOIN role
 ON employee.role_id = role.id 
 LEFT JOIN department 
 ON role.department_id = department.id
---ADD MANAGER NAME!!!!--
+--ADD MANAGER NAME!!!--
 
 --Add a department--
 INSERT INTO department 
@@ -25,5 +25,6 @@ SET title = ?, salary = ?, department_id = ?
 --Add an employee--
 INSERT INTO employee 
 SET first_name = ?, last_name = ?, role_id = ?
+--ADD MANAGER NAME!!!--
 
 --Update an employee role--
