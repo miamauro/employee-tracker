@@ -43,12 +43,13 @@ function init() {
           addDepartment();
           break;
         case "add a role":
-          // console.log("Let's add a role.");
+          addRole();
           break;
         case "add an employee":
           addEmployee();
           break;
         case "update an employee role":
+          // updateRole();
           // console.log("Let's update an employee role.");
           break;
         case "exit":
@@ -109,6 +110,50 @@ function addDepartment() {
     });
 }
 
+function addRole() {
+  db.query("SELECT * FROM department", (err, results) => {
+    const deptChoices = results.map(({ id, name }) => ({
+      name: name,
+      value: id,
+    }));
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "role",
+          message: "What is the name of the role?",
+        },
+        {
+          type: "input",
+          name: "salary",
+          message: "What is the salary of the role?",
+        },
+        {
+          type: "list",
+          name: "department_id",
+          message: "What department does the role belong to?",
+          choices: deptChoices,
+        },
+      ])
+      .then((data) => {
+        let role = data.role;
+        let salary = data.salary;
+        let departmentID = data.department_id;
+        db.query(
+          "INSERT INTO role SET title = ?, salary = ?, department_id = ?",
+          [role, salary, departmentID],
+          (err, results) => {
+            if (err) {
+              throw err;
+            }
+            console.log("Role added to database.");
+            init();
+          }
+        );
+      });
+  });
+}
+
 function addEmployee() {
   inquirer
     .prompt([
@@ -149,7 +194,7 @@ function addEmployee() {
                 if (err) {
                   throw err;
                 }
-                console.log("Employee added to database.")
+                console.log("Employee added to database.");
                 init();
               }
             );
@@ -157,5 +202,22 @@ function addEmployee() {
       });
     });
 }
+
+// function updateRole() {
+//   db.query("SELECT * FROM employee", (err, results) => {
+//     const employeeChoices = results.map(({ first_name, last_name, id }) => ({
+//       name: first_name,
+//       value: id,
+//     }));
+//     inquirer.prompt([
+//       {
+//         type: "list",
+//         name: "employee",
+//         message: "Which employee's role would you like to update?",
+//         choices: employeeChoices,
+//       },
+//     ]);
+//   });
+// }
 
 init();
