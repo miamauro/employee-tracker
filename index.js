@@ -102,6 +102,7 @@ function addDepartment() {
           if (err) {
             throw err;
           }
+          console.log("Department added to database.");
           init();
         }
       );
@@ -148,6 +149,7 @@ function addEmployee() {
                 if (err) {
                   throw err;
                 }
+                console.log("Employee added to database.")
                 init();
               }
             );
