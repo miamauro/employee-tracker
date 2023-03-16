@@ -2,14 +2,27 @@
 SELECT * FROM department
 
 --View all roles--
-SELECT role.id, role.title, department.name, role.salary FROM role
+SELECT role.id, role.title, department.name AS department, role.salary FROM role
 LEFT JOIN department 
 ON role.department_id = department.id;
 
 --View all employees--
-SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name, role.salary FROM employee 
+SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary FROM employee 
 LEFT JOIN role 
 ON employee.role_id = role.id 
 LEFT JOIN department 
 ON role.department_id = department.id
 --ADD MANAGER NAME!!!!--
+
+--Add a department--
+INSERT INTO department 
+SET name = ?
+
+--Add a role--
+
+
+--Add an employee--
+INSERT INTO employee 
+SET first_name = ?, last_name = ?, role_id = ?
+
+--Update an employee role--

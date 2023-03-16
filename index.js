@@ -40,7 +40,7 @@ function init() {
           viewAllEmployees();
           break;
         case "add a department":
-          // console.log("Let's add a department.");
+          addDepartment();
           break;
         case "add a role":
           // console.log("Let's add a role.");
@@ -82,6 +82,30 @@ function viewAllEmployees() {
       init();
     }
   );
+}
+
+function addDepartment() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "dept",
+        message: "What is the name of the department?",
+      },
+    ])
+    .then((data) => {
+      let department = data.dept;
+      db.query(
+        "INSERT INTO department SET name = ?",
+        department,
+        (err, resuls) => {
+          if (err) {
+            throw err;
+          }
+          init();
+        }
+      );
+    });
 }
 
 function addEmployee() {
