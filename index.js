@@ -52,6 +52,7 @@ function init() {
           // updateRole();
           break;
         case "exit":
+          console.log("Goodbye.");
           process.exit();
       }
     });
@@ -175,29 +176,41 @@ function addEmployee() {
           name: title,
           value: id,
         }));
-        inquirer
-          .prompt([
-            {
-              type: "list",
-              name: "role_id",
-              message: "What is the employee's role?",
-              choices: roleChoices,
-            },
-          ])
-          .then((data) => {
-            let roleID = data.role_id;
-            db.query(
-              "INSERT INTO employee SET first_name = ?, last_name = ?, role_id = ?",
-              [employeeFirstName, employeeLastName, roleID],
-              (err, results) => {
-                if (err) {
-                  throw err;
-                }
-                console.log("Employee added to database.");
-                init();
-              }
-            );
-          });
+        db.query(
+          'SELECT CONCAT(first_name, " ", last_name) AS name, id AS value FROM employee WHERE manager_id is null',
+          (err, mResults) => {
+            inquirer
+              .prompt([
+                {
+                  type: "list",
+                  name: "role_id",
+                  message: "What is the employee's role?",
+                  choices: roleChoices,
+                },
+                {
+                  type: "list",
+                  name: "manager",
+                  message: "Who is this emlpoyee's manager?",
+                  choices: mResults,
+                },
+              ])
+              .then((data) => {
+                let roleID = data.role_id;
+                let manager = data.manager;
+                db.query(
+                  "INSERT INTO employee SET first_name = ?, last_name = ?, role_id = ?, manager_id = ?",
+                  [employeeFirstName, employeeLastName, roleID, manager],
+                  (err, results) => {
+                    if (err) {
+                      throw err;
+                    }
+                    console.log("Employee added to database.");
+                    init();
+                  }
+                );
+              });
+          }
+        );
       });
     });
 }

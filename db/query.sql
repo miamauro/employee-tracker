@@ -24,7 +24,6 @@ SET title = ?, salary = ?, department_id = ?
 
 --Add an employee--
 INSERT INTO employee 
-SET first_name = ?, last_name = ?, role_id = ?
---ADD MANAGER NAME!!!--
+SET first_name = ?, last_name = ?, role_id = ?, manager_id = ?
 
 --Update an employee role--
