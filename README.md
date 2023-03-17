@@ -13,4 +13,4 @@ node index.js
 ```
 
 Below is a link to a video that will demo the functionality of Employee Tracker.  
-[Demo Video]()
+[Demo Video](https://drive.google.com/file/d/138Ke3bRTIcpJNAYqPoSgST07RYA_6z9O/view)
