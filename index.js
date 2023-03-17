@@ -17,6 +17,7 @@ function init() {
     .prompt([
       {
         type: "list",
+        loop: false,
         name: "task",
         message: "What would you like to do?",
         choices: [
@@ -133,6 +134,7 @@ function addRole() {
         },
         {
           type: "list",
+          loop: false,
           name: "department_id",
           message: "What department does the role belong to?",
           choices: deptChoices,
@@ -184,12 +186,14 @@ function addEmployee() {
                 .prompt([
                   {
                     type: "list",
+                    loop: false,
                     name: "role_id",
                     message: "What is the employee's role?",
                     choices: results,
                   },
                   {
                     type: "list",
+                    loop: false,
                     name: "manager",
                     message: "Who is this emlpoyee's manager?",
                     choices: mResults,
@@ -228,12 +232,14 @@ function updateRole() {
             .prompt([
               {
                 type: "list",
+                loop: false,
                 name: "employee",
                 message: "Which employee's role would you like to update?",
                 choices: results,
               },
               {
                 type: "list",
+                loop: false,
                 name: "role",
                 message: "What would you like to update their role to?",
                 choices: roleResults,
