@@ -25,7 +25,7 @@ INSERT INTO role
 SET title = ?, salary = ?, department_id = ?
 
 --Add an employee--
-SELECT * FROM role
+SELECT id AS value, title AS name FROM role
 --then--
 SELECT CONCAT(first_name, " ", last_name) AS name, id AS value FROM employee 
 WHERE manager_id is null
