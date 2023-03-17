@@ -49,7 +49,7 @@ function init() {
           addEmployee();
           break;
         case "update an employee role":
-          // updateRole();
+          updateRole();
           break;
         case "exit":
           console.log("Goodbye.");
@@ -214,21 +214,47 @@ function addEmployee() {
     });
 }
 
-// function updateRole() {
-//   db.query("SELECT * FROM employee", (err, results) => {
-//     const employeeChoices = results.map(({ first_name, last_name, id }) => ({
-//       name: first_name,
-//       value: id,
-//     }));
-//     inquirer.prompt([
-//       {
-//         type: "list",
-//         name: "employee",
-//         message: "Which employee's role would you like to update?",
-//         choices: employeeChoices,
-//       },
-//     ]);
-//   });
-// }
+function updateRole() {
+  db.query(
+    'SELECT id AS value, CONCAT(first_name, " ", last_name) as name FROM employee',
+    (err, results) => {
+      db.query(
+        "SELECT id AS value, title AS name FROM role",
+        (err, roleResults) => {
+          inquirer
+            .prompt([
+              {
+                type: "list",
+                name: "employee",
+                message: "Which employee's role would you like to update?",
+                choices: results,
+              },
+              {
+                type: "list",
+                name: "role",
+                message: "What would you like to update their role to?",
+                choices: roleResults,
+              },
+            ])
+            .then((data) => {
+              let employee = data.employee;
+              let updatedRole = data.role;
+              db.query(
+                "UPDATE employee SET role_id = ? WHERE id = ?",
+                [updatedRole, employee],
+                (err, results) => {
+                  if (err) {
+                    throw err;
+                  }
+                  console.log("Employee's role updated in database.");
+                  init();
+                }
+              );
+            });
+        }
+      );
+    }
+  );
+}
 
 init();
