@@ -1,7 +1,9 @@
+//Require in necessary packages.
 const inquirer = require("inquirer");
 const mysql = require("mysql2");
 const cTable = require("console.table");
 
+//Establish connection to local database.
 const db = mysql.createConnection({
   host: "127.0.0.1",
   user: "root",
@@ -9,6 +11,7 @@ const db = mysql.createConnection({
   database: "employees_db",
 });
 
+//Wrap the initial prompt in an init() to be able to call it within individual functions and continuously restart after completing each selected task.
 function init() {
   inquirer
     .prompt([
